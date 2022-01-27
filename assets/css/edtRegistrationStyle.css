@@ -1,0 +1,17 @@
+.edit-registration-fieldset{
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
+
+.edit-registration-fieldset:hover{
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid rgb(145, 143, 143);
+    border-radius: 2px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
