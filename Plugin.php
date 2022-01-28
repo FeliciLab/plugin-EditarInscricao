@@ -1,6 +1,7 @@
 <?php
 namespace EditRegistration;
 
+use DateTime;
 use MapasCulturais\i;
 use MapasCulturais\App;
 
@@ -18,6 +19,12 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('singles/opportunity-evaluations', ['template' => $template]);
             
         });
+
+        $app->hook('view.partial(singles/registration-single--header):after', function($template){
+           $entity = $this->data['entity'];
+           $opportunity = $this->data['entity'];
+           $this->part('singles/edit-registration-single--header', ['entity' => $entity, 'opportunity' => $opportunity]);
+        });
     }
  
     function register () {
@@ -29,6 +36,23 @@ class Plugin extends \MapasCulturais\Plugin {
                 '1' => i::__('Sim'),
             ]
         ]);
+    }
+
+    /**
+     * Metodo para verificar a data final da inscrição
+     * Compara de é maior que a data e hora atual para habilitar
+     * a div de inclusao de avaliadores
+     *
+     * @param [DateTime] $entity->registrationTo
+     * @return void
+     */
+    public function getEndDateopportunity($entity) {
+        $hoje = new DateTime('now');
+        $canEdit = false;
+        if($hoje <= $entity) {
+            $canEdit = true;
+        }
+        return $canEdit;
     }
 }
 ?>

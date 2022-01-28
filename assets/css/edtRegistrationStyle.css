@@ -15,3 +15,25 @@
     background-color: #f7f7f7;
     border-radius: 5px;
 }
+.registration-div-info {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .registration-btn-edit {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    flex: 1;
+  }
+  
+  .remodal {
+      color: #484a51 !important;
+  }
+  .remodal-close {
+      left: auto !important; 
+      right: 5px !important;
+  }
+  .remodal-title {
+      color: #484a51 !important;
+  }
