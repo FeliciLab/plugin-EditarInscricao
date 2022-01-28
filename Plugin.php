@@ -12,10 +12,10 @@ class Plugin extends \MapasCulturais\Plugin {
         $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
             $app = App::i();
             $data = [];
-            $theme = $this;
+            //$theme = $this;
             $app->view->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $app->view->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-            $this->part('singles/opportunity-evaluations', ['template' => $template, 'theme' => $theme]);
+            $this->part('singles/opportunity-evaluations', ['template' => $template]);
             
         });
     }
