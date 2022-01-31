@@ -20,12 +20,13 @@
     flex-direction: row;
   }
   
-  .registration-btn-edit {
+.registration-btn-edit {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-end;
     flex: 1;
-  }
+    margin-bottom: 25px;
+}
   
   .remodal {
       color: #484a51 !important;
@@ -37,3 +38,36 @@
   .remodal-title {
       color: #484a51 !important;
   }
+  .registration-header {
+    display: none !important;
+  }
+  .registration-header-check {
+    background-color: #42515e;
+    color: #fff;
+    padding: 0.75rem;
+    border-radius: 2px;
+  }
+
+.btn-registration {
+    background-color: #20873B !important;
+    border: 1px solid #4CAF50 !important;
+}
+
+.btn-registration:hover {
+    background-color: #20873B ;
+    border: 1px solid #4CAF50 !important;
+}
+
+.registration-header-check > a {
+    float: right;
+}
+
+@media screen and (max-width: 414px) {
+    .registration-header-check {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        font-size: 24px;
+    }
+    
+}

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //$(".registration-header").hide();
     $("#select-registration-avaliator").change(function (e) { 
         e.preventDefault();
         var select = $("#select-registration-avaliator").val();
@@ -13,5 +14,5 @@ $(document).ready(function () {
     });
 });
 $(function () {
-    $("#add-committee-agent").hide();
+    $("#add-committee-agent").hide();    
 });
