@@ -1,10 +1,12 @@
 <div class="remodal modal-border " data-remodal-id="modal-info-registration-confirm">
         <button data-remodal-action="close" class="remodal-close"></button>
     <h3 class="remodal-title">
-        <?php echo $titleBtn; ?>
+    <?php print_r($infoModal['titleModal']); ?>
     </h3>
     <div>
-        <h4 style="color: #F26822; font-weight: bold;"><?php echo $titleBtn; ?></h4>
+        <h4 style="color: #F26822; font-weight: bold;">
+        Todas as alterações feitas serão automaticamente salvas 
+        </h4>
     </div>
     <div>
         <p>Ao confirmar, <b>você só poderá editar sua inscrição</b> dentro do período de inscrição.

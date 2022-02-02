@@ -1,11 +1,16 @@
 <?php
 use DateTime;
-if($this->isEditable()):
 
+if($this->isEditable()):
+//limitDate sendo FALSE, a data de inscrição ainda nao se venceu
+$this->jsObject['limitDate'] =  false;
 $today = new DateTime('now');
 $registrationTo = $this->data->entity->registrationTo;
 
 if($today < $registrationTo):
+//trocando o valor da data vencida
+$this->jsObject['limitDate'] =  TRUE;
+
 ?>
 
 <div id="opportunity-conf-avaliator" class="edit-registration-fieldset">

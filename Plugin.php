@@ -6,13 +6,13 @@ use MapasCulturais\i;
 use MapasCulturais\App;
 
 class Plugin extends \MapasCulturais\Plugin {
-    function _init () {
+    public function _init () {
        $app = App::i();
 
         $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
             $data = [];
-            $this->_publishAssets();
-            $this->part('singles/opportunity-evaluations', ['template' => $template]);
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+            $this->part('singles/edit-registration-opportunity-evaluations', ['template' => $template]);
         });
 
         $app->hook('view.partial(singles/registration-single--header):after', function($template, $app){
@@ -20,7 +20,8 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             $entity = $this->data['entity'];
             $opportunity = $this->data['entity'];
-            $this->part('singles/edit-registration-single--header', ['entity' => $entity, 'opportunity' => $opportunity]);
+            $id = $this->data['entity']->id;
+            $this->part('singles/edit-registration-single--header', ['entity' => $entity, 'opportunity' => $opportunity, 'id' => $id]);
         });
 
         $app->hook('POST(registration.alterStatusRegistration)', function () use ($app) {
@@ -54,9 +55,18 @@ class Plugin extends \MapasCulturais\Plugin {
                 $infoModal['titleModal'] = 'Você está finalizando sua edição.';
                 $isEdit = true;
             };
-
+            
             $this->part('singles/edit-registration-send--button', ['infoModal' => $infoModal, 'isEdit' => $isEdit]);
         });
+        
+        $app->hook('template(registration.view.pdf-report-btn-footer):before', function() use($app){
+            $this->part('singles/edit-registration-button-edition');
+        });
+
+        $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
+            
+        });
+       
     }
  
     function register () {
@@ -89,9 +99,8 @@ class Plugin extends \MapasCulturais\Plugin {
 
     public function publishAssetsEditRegistrarion() {
         $app = App::i();
-        $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
-        $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+        $app->view->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
+        $app->view->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
     }
 
 }
-?>

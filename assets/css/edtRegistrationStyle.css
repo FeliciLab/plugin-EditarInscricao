@@ -25,7 +25,7 @@
     flex-direction: column-reverse;
     align-items: flex-end;
     flex: 1;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
   
   .remodal {
@@ -50,19 +50,19 @@
 
 .btn-registration {
     background-color: #20873B !important;
-    border: 1px solid #4CAF50 !important;
+    border: 1px solid #20873B !important;
 }
 
 .btn-registration:hover {
     background-color: #20873B ;
-    border: 1px solid #4CAF50 !important;
+    border: 1px solid #20873B !important;
 }
 
 .registration-header-check > a {
     float: right;
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 428px) {
     .registration-header-check {
         display: flex;
         flex-direction: column;
@@ -70,4 +70,9 @@
         font-size: 24px;
     }
     
+}
+.edt-registration-btns-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

@@ -3,16 +3,21 @@ $(document).ready(function () {
     $("#select-registration-avaliator").change(function (e) { 
         e.preventDefault();
         var select = $("#select-registration-avaliator").val();
-        console.log({select});
         if(select == 0) {
-            $("#add-committee-agent").show();
+            $(".agentes-relacionados .registration-fieldset > span").show();
             $("#select_edit_registrations").editable('setValue', select);
         }else{
-            $("#add-committee-agent").hide();
+            $(".agentes-relacionados .registration-fieldset > span").hide();
             $("#select_edit_registrations").editable('setValue', select);
         }
     });
 });
 $(function () {
-    $("#add-committee-agent").hide();    
+    //ocutando o botão de add avaliador por padrão
+    //limitDate sendo false é por que a data de inscrição ja se venveu
+    if(MapasCulturais.limitDate) {
+        $(".agentes-relacionados .registration-fieldset > span").hide();       
+    }else{
+        $(".agentes-relacionados .registration-fieldset > span").show();
+    }
 });

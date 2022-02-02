@@ -7,10 +7,14 @@ if($day >= $entity->opportunity->registrationTo) {
 }
 if(!$canEdit) : 
 ?>
-<div class="registration-btn-edit registration-fieldset">
-    <a href="#" class="btn btn-success btn-registration" data-remodal-target="modal-edit-registration" title="Edite a sua inscrição">
-        Editar Inscrição
-    </a>
+<div class="registration-btn-edit">
+    <div class="edt-registration-btns-header">
+        <?php  
+        //$this->part('singles/edit-registration-button-edition'); 
+        $this->part('reports/button-print', ['id' => $id]); 
+        ?>
+    </div>
+   
     <div class="remodal modal-border" data-remodal-id="modal-edit-registration">
         <button data-remodal-action="close" class="remodal-close"></button>
         <h3>Você editará sua inscrição.</h3>
@@ -39,7 +43,5 @@ if(!$canEdit) :
 <?php endif; ?>
 <?php $this->applyTemplateHook('registration-single-header','before'); ?>
 <h3 class="registration-header-check">
-    <?php $this->applyTemplateHook('registration-single-header', 'begin'); ?>
-    <?php \MapasCulturais\i::_e("Comprovante de Inscrição");?>
-    <?php $this->applyTemplateHook('registration-single-header', 'end'); ?>
+<?php \MapasCulturais\i::_e("Comprovante de Inscrição");?>
 </h3>

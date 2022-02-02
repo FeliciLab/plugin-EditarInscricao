@@ -3,6 +3,7 @@
 </a>
 <!-- modal de Confirmação de inscrição -->
 <?php 
+
 if($isEdit) {
     $this->part('modals/open-modal-edit-subscribe',['infoModal' => $infoModal]);
 }else{
