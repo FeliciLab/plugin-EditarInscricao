@@ -59,7 +59,7 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('singles/edit-registration-send--button', ['infoModal' => $infoModal, 'isEdit' => $isEdit]);
         });
         
-        $app->hook('template(registration.view.pdf-report-btn-footer):before', function() use($app){
+        $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
             $this->part('singles/edit-registration-button-edition');
         });
 

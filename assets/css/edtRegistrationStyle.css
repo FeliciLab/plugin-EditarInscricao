@@ -74,5 +74,11 @@
 .edt-registration-btns-header{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.pdf-report-btn {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
