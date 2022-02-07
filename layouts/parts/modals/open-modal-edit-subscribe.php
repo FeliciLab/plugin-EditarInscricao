@@ -1,4 +1,4 @@
-<div class="remodal modal-border" data-remodal-id="modal-info-registration-confirm">
+<div class="remodal modal-border" ng-controller="OpportunityController" data-remodal-id="modal-info-registration-confirm">
         <button data-remodal-action="close" class="remodal-close"></button>
     <h3 class="remodal-title">
         <?php echo $infoModal['titleModal']; ?>

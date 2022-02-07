@@ -46,7 +46,7 @@ class Plugin extends \MapasCulturais\Plugin {
             $infoModal = [
                 'nameBtn' => 'Finalizar Inscrição',
                 'titleBtn' => 'Você está enviando sua inscrição para análise',
-                'titleModal' => 'Você conferiu os seus dados?'
+                'titleModal' => 'Você está enviando sua inscrição para análise.'
             ];
             $isEdit = false;
             if(!is_null($this->data['entity']->sentTimestamp)) {
@@ -60,7 +60,15 @@ class Plugin extends \MapasCulturais\Plugin {
         });
         
         $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
+            $day = new DateTime('now');
+            $canEdit = false;
+            /** CASO A DATA DE HOJE FOR MENOR OU IGUAL A DATA DO FIM DA INSCRIÇÃO */
+            if($day >= $this->data['entity']->opportunity->registrationTo) {
+                $canEdit = true;
+            }
+            if(!$canEdit) : 
             $this->part('singles/edit-registration-button-edition');
+            endif;
         });
 
         $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
