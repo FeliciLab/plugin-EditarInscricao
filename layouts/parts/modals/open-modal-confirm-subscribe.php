@@ -3,8 +3,8 @@
     $this->bodyProperties['ng-controller'] = "EntityController";
     $this->jsObject['angularAppDependencies'][] = 'errorValidation';
 ?>
-<div ng-app="errorValidation">
-    <div class="remodal modal-border" ng-controller="ValidationController" data-remodal-id="modal-info-registration-confirm">
+<div>
+    <div class="remodal modal-border" data-remodal-id="modal-info-registration-confirm">
             <button data-remodal-action="close" class="remodal-close"></button>
         <h3 class="remodal-title">
         <?php print_r($infoModal['titleModal']); ?>
