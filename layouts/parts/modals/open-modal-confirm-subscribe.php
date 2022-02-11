@@ -1,7 +1,7 @@
 <?php
     $this->bodyProperties['ng-app'] = "entity.app";
     $this->bodyProperties['ng-controller'] = "EntityController";
-    $this->jsObject['angularAppDependencies'][] = 'errorValidation';
+    //$this->jsObject['angularAppDependencies'][] = 'errorValidation';
 ?>
 <div>
     <div class="remodal modal-border" data-remodal-id="modal-info-registration-confirm">
