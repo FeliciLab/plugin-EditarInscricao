@@ -43,6 +43,11 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
 
+            /** AVISO DE CAMPOS OBRIGATORIOS */
+            $this->enqueueScript('app', 'errorsSend', 'js/errorValidationsSend.js');
+
+            $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
+
             $infoModal = [
                 'nameBtn' => 'Finalizar Inscrição',
                 'titleBtn' => 'Você está enviando sua inscrição para análise',
