@@ -33,7 +33,7 @@ class Plugin extends \MapasCulturais\Plugin {
                 $reg->setStatusToDraft();//metodo para alterar o status para 0  (Rascunho)
                 $reg->save(true);
                 $app->enableAccessControl();
-                $app->redirect($app->request()->getReferer());
+                $app->redirect($reg->editUrl);
             } catch (\Exception $e) {
                 dump($e);
             }
