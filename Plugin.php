@@ -79,6 +79,18 @@ class Plugin extends \MapasCulturais\Plugin {
         $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
             
         });
+
+        $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
+            
+            $infoModal = [
+                'title' => 'Você editará sua inscrição.',
+                'subTitle' => 'Todas as alterações feitas serão automaticamente salvas.',
+                'body' => 'Ao confirmar essa ação, <strong>você irá alterar uma inscrição já enviada.</strong> Você conseguirá editar novamente os dados desta inscrição se fizer isso durante o período de incrições.',
+                'buttonConfirm' => 'Confirmar'
+            ];
+            
+            $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
+        });
        
     }
  
