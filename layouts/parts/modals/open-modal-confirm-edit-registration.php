@@ -1,8 +1,9 @@
 <div class="registration-btn-edit">
     <div class="edt-registration-btns-header">
         <?php  
-        //$this->part('singles/edit-registration-button-edition'); 
-        $this->part('reports/button-print', ['id' => $id]); 
+        if(!is_null($id)){
+            $this->part('reports/button-print', ['id' => $id]); 
+        }
         ?>
     </div>
    
