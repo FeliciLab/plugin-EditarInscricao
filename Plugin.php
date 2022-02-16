@@ -40,6 +40,7 @@ class Plugin extends \MapasCulturais\Plugin {
             }
         });
 
+        // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
         $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
             $this->part('modals/info-field--required');
         });
