@@ -16,6 +16,7 @@ class Plugin extends \MapasCulturais\Plugin {
         });
 
         $app->hook('view.partial(singles/registration-single--header):after', function($template, $app){
+
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             $entity = $this->data['entity'];
@@ -37,6 +38,10 @@ class Plugin extends \MapasCulturais\Plugin {
             } catch (\Exception $e) {
                 dump($e);
             }
+        });
+
+        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
+            $this->part('modals/info-field--required');
         });
 
         $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
@@ -79,9 +84,16 @@ class Plugin extends \MapasCulturais\Plugin {
             
         });
 
-        $app->hook("template(registration.view.registration-opportunity-buttons):before", function() use($app){
-            $app->view->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
-            $this->part('modals/info-field--required');
+        $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
+            
+            $infoModal = [
+                'title' => 'Você editará sua inscrição.',
+                'subTitle' => 'Todas as alterações feitas serão automaticamente salvas.',
+                'body' => 'Ao confirmar essa ação, <strong>você irá alterar uma inscrição já enviada.</strong> Você conseguirá editar novamente os dados desta inscrição se fizer isso durante o período de incrições.',
+                'buttonConfirm' => 'Confirmar'
+            ];
+            
+            $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
         });
        
     }
