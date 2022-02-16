@@ -416,7 +416,6 @@
                     })
                     .error(function(r) {
                         if (Array.isArray(Object.values(r.data)) && Object.values(r.data).lenght != 0 ){
-                            console.log(field.fieldName);
                             var fields = MapasCulturais.entity.registrationFieldConfigurations;
                             var nameField = '';
                             fields.forEach(element => {
@@ -424,18 +423,15 @@
                                     nameField = element.title;
                                 }
                             });
-                            console.log(nameField);
                             field.error = [Object.values(r.data).join(', ')];
                             //$scope.entityErrors[field.fieldName] = field.error;
                             var errors = field.error;
-
                             var msgError = '<span> ' + nameField + '. </span> (<small>'+errors+'</small>)';
                             $("#title_modal_required_info").text('');
                             $("#title_modal_required_info").text('Verifique o formato dos campos solicitados.');
                             $("#info-erros-required-fields").append('<li>'+msgError+'</li>');
                             $("#subTitle_modal_required_info").text("Para prosseguir com sua inscrição, é necessário que você forneça os dados no formato solicitado nos campos");
                             $("#infoField_modal_required_info").text("Você precisa verificar o formato dos seguintes campos:");
-                            
                             var modal = $('[data-remodal-id=remodal_info_field_required]').remodal();
                             modal.open();
                         }
@@ -453,8 +449,7 @@
         }
     
         $scope.numFieldErrors = function() {0
-            console.log('numFieldErrors')
-            console.log(Object.keys($scope.entityErrors).length)
+
             if(typeof $scope.entityErrors == 'object') {
                 return Object.keys($scope.entityErrors).length;
             } else {
@@ -473,7 +468,7 @@
                     return;
                 }
     
-                $scope.saveField(field, current, 10000)
+                $scope.saveField(field, current, 90000)
             }, true);
         });
     
@@ -681,3 +676,13 @@
     }]);
 
 })(angular);
+
+$(function () {
+    // LIMPANDO O ITENS
+    $(document).on('closed', '.remodal', function (e) {
+        $("#info-erros-required-fields").empty();
+        //enviar requisição para rota opportunity.emptySession
+        
+    });
+
+});

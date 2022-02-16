@@ -44,7 +44,7 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
 
             /** AVISO DE CAMPOS OBRIGATORIOS */
-            $this->enqueueScript('app', 'errorsSend', 'js/errorValidationsSend.js');
+            // $this->enqueueScript('app', 'errorsSend', 'js/errorValidationsSend.js');
 
             $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
 
@@ -78,6 +78,10 @@ class Plugin extends \MapasCulturais\Plugin {
 
         $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
             
+        });
+
+        $app->hook("template(registration.view.registration-opportunity-buttons):before", function() use($app){
+            $this->part('modals/info-field--required');
         });
        
     }
