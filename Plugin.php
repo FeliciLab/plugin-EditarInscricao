@@ -44,9 +44,8 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
 
             /** AVISO DE CAMPOS OBRIGATORIOS */
-            // $this->enqueueScript('app', 'errorsSend', 'js/errorValidationsSend.js');
-
             $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
+            $this->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
 
             $infoModal = [
                 'nameBtn' => 'Finalizar Inscrição',
@@ -81,6 +80,7 @@ class Plugin extends \MapasCulturais\Plugin {
         });
 
         $app->hook("template(registration.view.registration-opportunity-buttons):before", function() use($app){
+            $app->view->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
             $this->part('modals/info-field--required');
         });
        
