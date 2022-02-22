@@ -2,14 +2,14 @@
 <div class="remodal modal-border-danger " data-remodal-id="remodal_info_field_required">
   <button data-remodal-action="close" class="remodal-close"></button>
   <div class="remodal-content-body">
-    <h1 class="text-title-modal-border-danger" id="title_modal_required_info">Você esqueceu de preencher alguns campos.</h1>
+    <h1 class="text-title-modal-border-danger" id="title_modal_required_info">Verifique o erro de alguns campos</h1>
     <p class="text-body-modal-border-danger" id="subTitle_modal_required_info">
-      Para prosseguir com sua inscrição, é necessário preencher todos os campos marcados como obrigatórios
+      Para prosseguir com sua inscrição, é necessário fazer algumas correções
     </p>
     
-      <span class="sub-title-remodal" id="infoField_modal_required_info">Você precisa preencher o(s) seguinte(s) campo(s):</span>
+      <span class="sub-title-remodal" id="infoField_modal_required_info">Você precisa verificar os seguintes campos:</span>
    
-    <p id="info-erros-required-fields" class="info-erros-required-fields"></p>
+    <ul id="info-erros-required-fields" class="info-erros-required-fields"></ul>
   </div>
   <div>
   

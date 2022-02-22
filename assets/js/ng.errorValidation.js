@@ -63,12 +63,13 @@
                         var focused = false;
                         Object.keys(response.data).forEach(function (field, index) {
                             var $el;
+                            var messageField = [];
                             if (field === 'projectName') {
                                 $el = $('#projectName').parent().find('.label');
                             } else if (field === 'category') {
-                                $el = $('#category').parent().find('.attachment-description');
+                                $el = $('#category').parent().find('.label');
                             } else if (field.indexOf('agent') !== -1) {
-                                $el = $('#' + field).parent().find('.registration-label');
+                                messageField.push(response.data[field]);
                             } else if (field.indexOf('space') !== -1) {
                                 $el = $('#registration-space-title').parent().find('.registration-label');
                             } else {
@@ -77,16 +78,22 @@
                             //para adicionar o nome dos campos
                             var nameFields = [];
                             //loop para preencher o array com o nome de cada campo
-                            $.each($el, function (indexInArray, val) { 
-                                nameFields.push(val.innerText);
-                            });
-                            $.each(nameFields, function (index, valor) { 
+                            if($el != null){
+                                $.each($el, function (indexInArray, val) { 
+                                    nameFields.push('O Campo ' + val.innerText + ' é obrigatório.');
+                                });
+                                $.each(nameFields, function (index, valor) { 
+                                    //adicionando cada nome do array em uma LI
+                                    $("#info-erros-required-fields").append('<li>'+valor+'</li>'); 
+                                });
+                            };
+                            $.each(messageField, function (index, valor) {
                                 //adicionando cada nome do array em uma LI
                                 $("#info-erros-required-fields").append('<li>'+valor+'</li>'); 
                             });
                             //chamando o moda
                             var modal = $('[data-remodal-id=remodal_info_field_required]').remodal();
-                            modal.open();
+                            modal.open()
                             
                         });
                         //MapasCulturais.Messages.error('Error Validation');
@@ -208,7 +215,6 @@
                         }
                     }
                 });
-    
                 return $http.patch(this.getUrl('single', entity.id), data).
                     success(function(data, status){
                         MapasCulturais.Messages.success(labels['changesSaved']);
@@ -355,8 +361,6 @@
     
         $scope.entity = MapasCulturais.entity.object;
     
-        // $scope.entityErrors = {};
-    
         $scope.data = {
             fileConfigurations: MapasCulturais.entity.registrationFileConfigurations
         };
@@ -390,7 +394,6 @@
     
             $scope.entity[field.fieldName] = val;
         });
-    
         var timeouts = {};
     
         $scope.saveField = function (field, value, delay) {
@@ -412,6 +415,7 @@
                 RegistrationService.updateFields(data)
                     .success(function(){
                         $scope.removeFieldErrors(field.fieldName);
+                        $('#modal-info-registration-confirm').attr("disabled", false);
                         delete field.error;
                     })
                     .error(function(r) {
@@ -424,16 +428,7 @@
                                 }
                             });
                             field.error = [Object.values(r.data).join(', ')];
-                            //$scope.entityErrors[field.fieldName] = field.error;
-                            var errors = field.error;
-                            var msgError = '<span> ' + nameField + '. </span> (<small>'+errors+'</small>)';
-                            $("#title_modal_required_info").text('');
-                            $("#title_modal_required_info").text('Verifique o formato dos campos solicitados.');
-                            $("#info-erros-required-fields").append('<li>'+msgError+'</li>');
-                            $("#subTitle_modal_required_info").text("Para prosseguir com sua inscrição, é necessário que você forneça os dados no formato solicitado nos campos");
-                            $("#infoField_modal_required_info").text("Você precisa verificar o formato dos seguintes campos:");
-                            var modal = $('[data-remodal-id=remodal_info_field_required]').remodal();
-                            modal.open();
+                            $('#modal-info-registration-confirm').attr("disabled", true);
                         }
                     });
             },delay);
