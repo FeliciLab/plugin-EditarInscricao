@@ -39,7 +39,6 @@ class Plugin extends \MapasCulturais\Plugin {
                 dump($e);
             }
         });
-
         // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
         $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
             $this->part('modals/info-field--required');
@@ -79,10 +78,6 @@ class Plugin extends \MapasCulturais\Plugin {
             if(!$canEdit) : 
             $this->part('singles/edit-registration-button-edition');
             endif;
-        });
-
-        $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
-            
         });
 
         $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
