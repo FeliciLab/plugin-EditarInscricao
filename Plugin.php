@@ -16,6 +16,7 @@ class Plugin extends \MapasCulturais\Plugin {
         });
 
         $app->hook('view.partial(singles/registration-single--header):after', function($template, $app){
+
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             $entity = $this->data['entity'];
@@ -33,15 +34,26 @@ class Plugin extends \MapasCulturais\Plugin {
                 $reg->setStatusToDraft();//metodo para alterar o status para 0  (Rascunho)
                 $reg->save(true);
                 $app->enableAccessControl();
-                $app->redirect($app->request()->getReferer());
+                $app->redirect($reg->editUrl);
             } catch (\Exception $e) {
                 dump($e);
             }
+        });
+        // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
+        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
+            $this->part('modals/info-field--required');
         });
 
         $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+
+            /** AVISO DE CAMPOS OBRIGATORIOS */
+            $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
+            $this->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
+
+            /** Adicionado SweetAlert 2 para modal de loading e futuro modais no mapa. */
+            $this->enqueueScript('app', 'sweetalert', 'https://cdn.jsdelivr.net/npm/sweetalert2@11');
 
             $infoModal = [
                 'nameBtn' => 'Finalizar Inscrição',
@@ -71,8 +83,16 @@ class Plugin extends \MapasCulturais\Plugin {
             endif;
         });
 
-        $app->hook('template(registration.view.registration-single-header):end', function () use ($app) {
+        $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
             
+            $infoModal = [
+                'title' => 'Você editará sua inscrição.',
+                'subTitle' => 'Todas as alterações feitas serão automaticamente salvas.',
+                'body' => 'Ao confirmar essa ação, <strong>você irá alterar uma inscrição já enviada.</strong> Você conseguirá editar novamente os dados desta inscrição se fizer isso durante o período de incrições.',
+                'buttonConfirm' => 'Confirmar'
+            ];
+            
+            $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
         });
        
     }

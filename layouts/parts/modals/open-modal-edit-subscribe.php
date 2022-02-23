@@ -1,4 +1,9 @@
-<div class="remodal modal-border" ng-controller="OpportunityController" data-remodal-id="modal-info-registration-confirm">
+<?php
+$this->bodyProperties['ng-app'] = "entity.app";
+$this->bodyProperties['ng-controller'] = "EntityController";
+$this->jsObject['angularAppDependencies'][] = 'errorValidation';
+?>
+<div class="remodal modal-border"  ng-controller="ValidationController" ng-app="errorValidation" data-remodal-id="modal-info-registration-confirm">
         <button data-remodal-action="close" class="remodal-close"></button>
     <h3 class="remodal-title">
         <?php echo $infoModal['titleModal']; ?>

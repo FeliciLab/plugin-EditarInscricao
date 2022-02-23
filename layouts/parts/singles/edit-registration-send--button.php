@@ -1,6 +1,6 @@
-<a data-remodal-target="modal-info-registration-confirm" class="btn btn-success btn-registration" onclick="">
+<button data-remodal-target="modal-info-registration-confirm" id="modal-info-registration-confirm" class="btn btn-success btn-registration" onclick="">
     <?php echo $infoModal['nameBtn']; ?>
-</a>
+</button>
 <!-- modal de Confirmação de inscrição -->
 <?php 
 
