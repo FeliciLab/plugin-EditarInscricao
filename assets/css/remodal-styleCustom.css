@@ -49,9 +49,3 @@
     justify-content: flex-start;
     display: flex;
 }
-button:disabled,
-button[disabled]{
-  border: 1px solid #999999 !important;
-  background-color: #cccccc !important;
-  color: #666666;
-}
