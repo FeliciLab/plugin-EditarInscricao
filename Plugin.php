@@ -52,6 +52,9 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
             $this->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
 
+            /** Adicionado SweetAlert 2 para modal de loading e futuro modais no mapa. */
+            $this->enqueueScript('app', 'sweetalert', 'https://cdn.jsdelivr.net/npm/sweetalert2@11');
+
             $infoModal = [
                 'nameBtn' => 'Finalizar Inscrição',
                 'titleBtn' => 'Você está enviando sua inscrição para análise',

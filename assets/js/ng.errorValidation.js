@@ -57,6 +57,10 @@
 
             $scope.data.entity = MapasCulturais.entity;
             $scope.sendRegistration = function (redirectUrl) {
+                new swal({
+                    title: 'Estamos enviando sua inscrição'
+                });
+                swal.showLoading();
                 ValidationService.send($scope.data.entity.id).success(function (response) {
                     $('.js-response-error').remove();
                     if (response.error) {
@@ -91,6 +95,7 @@
                                 //adicionando cada nome do array em uma LI
                                 $("#info-erros-required-fields").append('<li>'+valor+'</li>'); 
                             });
+                            swal.close();
                             //chamando o moda
                             var modal = $('[data-remodal-id=remodal_info_field_required]').remodal();
                             modal.open()
@@ -99,7 +104,7 @@
                         //MapasCulturais.Messages.error('Error Validation');
                     } else {
                         $scope.data.sent = true;
-                        MapasCulturais.Messages.success(labels['registrationSent']);
+                        MapasCulturais.Messages.success('Inscrição enviada. Aguarde tela de usuário.');
 
                         if (redirectUrl) {
                             document.location = redirectUrl;
@@ -415,6 +420,7 @@
                 RegistrationService.updateFields(data)
                     .success(function(){
                         $scope.removeFieldErrors(field.fieldName);
+                        $('#modal-info-registration-confirm').removeClass("disabled");
                         $('#modal-info-registration-confirm').attr("disabled", false);
                         delete field.error;
                     })
@@ -428,6 +434,7 @@
                                 }
                             });
                             field.error = [Object.values(r.data).join(', ')];
+                            $('#modal-info-registration-confirm').addClass("disabled");
                             $('#modal-info-registration-confirm').attr("disabled", true);
                         }
                     });
