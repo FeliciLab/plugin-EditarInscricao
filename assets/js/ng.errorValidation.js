@@ -71,20 +71,24 @@
                             if (field === 'projectName') {
                                 $el = $('#projectName').parent().find('.label');
                             } else if (field === 'category') {
-                                $el = $('#category').parent().find('.label');
+                                $el = $('#category').parent().find('span:first');
                             } else if (field.indexOf('agent') !== -1) {
                                 messageField.push(response.data[field]);
                             } else if (field.indexOf('space') !== -1) {
                                 $el = $('#registration-space-title').parent().find('.registration-label');
                             } else {
                                 $el = $('#' + field).find('div:first');
+                                if(!$el[0].innerText){
+                                    $el = $('#' + field).find('span:first');
+                                }
                             }
                             //para adicionar o nome dos campos
                             var nameFields = [];
                             //loop para preencher o array com o nome de cada campo
                             if($el != null){
                                 $.each($el, function (indexInArray, val) { 
-                                    nameFields.push('O Campo ' + val.innerText + ' é obrigatório.');
+                                    var text = val.innerText.includes('(')  ? val.innerText.substr(0, val.innerText.indexOf('(')) : val.innerText;
+                                    nameFields.push('O Campo ' + text + ' é obrigatório.');
                                 });
                                 $.each(nameFields, function (index, valor) { 
                                     //adicionando cada nome do array em uma LI
