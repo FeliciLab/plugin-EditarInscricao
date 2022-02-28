@@ -82,3 +82,13 @@
     justify-content: space-between;
     width: 100%;
 }
+.project-buttons-edit{
+    display: flex;
+    justify-content: unset;
+}
+.registration-form-content-input{
+    justify-content: space-between;
+}
+.registration-form-content-input > div{
+    padding-right: 15px;
+}

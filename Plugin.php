@@ -94,6 +94,19 @@ class Plugin extends \MapasCulturais\Plugin {
             
             $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
         });
+
+        /**
+         * Hook para na tela de projetos ser possivel editar inscrição.
+         */
+        $app->hook('view.partial(singles/opportunity-registrations--form).params', function (&$__data, &$__template)  use ($app){
+            if($url_atual == "project"){
+                $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
+                $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+                $url_atual = $app->view->controller->id;
+                $__template = 'singles/project-form-edit-registration.php'; 
+            }
+            return;
+        }); 
        
     }
  
