@@ -99,10 +99,10 @@ class Plugin extends \MapasCulturais\Plugin {
          * Hook para na tela de projetos ser possivel editar inscrição.
          */
         $app->hook('view.partial(singles/opportunity-registrations--form).params', function (&$__data, &$__template)  use ($app){
+            $url_atual = $app->view->controller->id;
             if($url_atual == "project"){
                 $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
                 $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-                $url_atual = $app->view->controller->id;
                 $__template = 'singles/project-form-edit-registration.php'; 
             }
             return;
