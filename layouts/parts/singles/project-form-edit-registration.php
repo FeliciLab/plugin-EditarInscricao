@@ -35,15 +35,14 @@ if  ($entity->isRegistrationOpen()): ?>
                             <strong><?php \MapasCulturais\i::_e("Apenas são visíveis os agentes publicados.");?> <a target="_blank" href="<?php echo $app->createUrl('panel', 'agents') ?>"><?php \MapasCulturais\i::_e("Ver mais.");?></a></strong>
                         </edit-box>
                         <?php if($entity->registrationLimitPerOwner == 0 || count($registrations) < $entity->registrationLimitPerOwner): ?>
-                            <?php if(count($registrations) != 0): ?>
+                            <div>
+                                <a class="btn btn-primary btn-register-opportunity" style="color: #ffffff;" ng-click="register(<?php echo $entity->id; ?>)" rel='noopener noreferrer'><?php \MapasCulturais\i::_e("Fazer inscrição");?></a>
+                            </div>
+                            <?php if(count($registrations) == 0): ?>
                                 <div>
-                                    <a class="btn btn-primary btn-register-opportunity" style="color: #ffffff;" ng-click="register(<?php echo $entity->id; ?>)" rel='noopener noreferrer'><?php \MapasCulturais\i::_e("Fazer inscrição");?></a>
+                                    <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Mais informações");?></a>
                                 </div>
-                            <?php else: ?>
-                                <div>
-                                <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Mais informações");?></a>
-                                </div>
-                            <?php endif; ?>
+                            <?php endif;?>
                         <?php endif;?>
                         <?php if(count($registrations) > 0): ?>
                             <?php if($day <= $entity->registrationTo && count($registrations) == 1): ?>
