@@ -55,7 +55,7 @@ if  ($entity->isRegistrationOpen()): ?>
                                     <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Acessar Inscrição");?></a>
                                 <?php endif;?>
                                 <?php if(count($registrations) == 1): ?>
-                                    <a href="<?=reset($registrations)->singleUrl?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Acessar Inscrição");?></a>
+                                    <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Acessar Inscrição");?></a>
                                 <?php endif;?>
                             </div>
                         <?php endif;?>
