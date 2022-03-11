@@ -92,3 +92,26 @@
 .registration-form-content-input > div{
     padding-right: 15px;
 }
+.registration-form-content {
+    width: 100% !important;
+}
+.project-buttons-edit {
+    display: flex;
+    justify-content: unset;
+}
+.registration-form-content-input {
+    display: flex;
+    flex: 1;
+}
+.registration-form .input-text {
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.38);
+    box-sizing: border-box;
+    width: 70%;
+}
+.btn-access-opportunity {
+    color: #ffffff;
+    background: #8C9EFF;
+    flex-direction: row;
+    align-items: center;
+}

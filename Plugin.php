@@ -100,10 +100,10 @@ class Plugin extends \MapasCulturais\Plugin {
          */
         $app->hook('view.partial(singles/opportunity-registrations--form).params', function (&$__data, &$__template)  use ($app){
             $url_atual = $app->view->controller->id;
+            $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             if($url_atual == "project"){
-                $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
-                $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-                $__template = 'singles/project-form-edit-registration.php'; 
+                $__template = 'singles/project-form-edit-registration'; 
             }
             return;
         }); 
