@@ -40,11 +40,11 @@ class Plugin extends \MapasCulturais\Plugin {
             }
         });
         // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
-        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
+        $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
             $this->part('modals/info-field--required');
         });
 
-        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
+        $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
 
