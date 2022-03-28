@@ -44,7 +44,8 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('modals/info-field--required');
         });
 
-        $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
+        $app->hook('view.partial(singles/registration-edit--send-button).params', function(&$__data, &$__template) use($app){
+            $entity = $this->data['entity'];
             $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
 
@@ -67,8 +68,11 @@ class Plugin extends \MapasCulturais\Plugin {
                 $infoModal['titleModal'] = 'Você está finalizando sua edição.';
                 $isEdit = true;
             };
-            
-            $this->part('singles/edit-registration-send--button', ['infoModal' => $infoModal, 'isEdit' => $isEdit]);
+
+            $__data['infoModal'] = $infoModal;
+            $__data['isEdit'] = $isEdit;
+
+            $__template = 'singles/edit-plugin-registration-send--button';
         });
         
         $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
