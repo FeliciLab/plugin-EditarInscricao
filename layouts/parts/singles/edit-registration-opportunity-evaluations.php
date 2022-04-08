@@ -19,11 +19,11 @@ if($this->isEditable()):
     <br>
     <select name="" id="select-registration-avaliator" >
         <option value="">--Selecione--</option>
-        <option value="1" selected>Sim</option>
-        <option value="0">Não</option>
+        <option value="1" <?php echo  $this->data->entity->select_edit_registration == 1 ? 'selected' : ''; ?>>Sim</option>
+        <option value="0" <?php echo  $this->data->entity->select_edit_registration == 0 ? 'selected' : ''; ?>>Não</option>
     </select>
-    <span class="js-editable" id="select_edit_registrations" data-edit="select_edit_registration" data-original-title="Cor preferida" data-emptytext="Selecione" style="display: none;">
-        <?php echo $this->select_edit_registration; ?>
+    <span class="js-editable" id="select_edit_registrations" data-edit="select_edit_registration" data-emptytext="Selecione" style="display: none;">
+        <?php echo isset($this->data->entity->select_edit_registration) ? $this->data->entity->select_edit_registration : '0'; ?>
     </span>
     <edit-box id="id-da-caixa" position="right" title="Habilitar edição" spinner-condition="data.processando" cancel-label="Fechar" close-on-cancel='true'>
         <p>
