@@ -77,14 +77,15 @@ class Plugin extends \MapasCulturais\Plugin {
         
         $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
             $day = new DateTime('now');
-            $canEdit = false;
+            $cantEdit = false;
+
             /** CASO A DATA DE HOJE FOR MENOR OU IGUAL A DATA DO FIM DA INSCRIÇÃO */
-            if($day >= $this->data['entity']->opportunity->registrationTo) {
-                $canEdit = true;
+            if($this->data['entity']->opportunity->select_edit_registration == '1' && ($day <= $this->data['entity']->opportunity->registrationTo)) {
+                $cantEdit = true;
             }
-            if(!$canEdit) : 
-            $this->part('singles/edit-registration-button-edition');
-            endif;
+
+            if($cantEdit)
+                $this->part('singles/edit-registration-button-edition');
         });
 
         $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
