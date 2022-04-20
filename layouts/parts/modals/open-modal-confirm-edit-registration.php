@@ -7,7 +7,7 @@
         ?>
     </div>
    
-    <div class="remodal modal-border" data-remodal-id="modal-edit-registration">
+    <div class="remodal modal-border" data-remodal-id="modal-edit-registration<?php echo isset($modalid) ? $modalid : ''; ?>">
         <button data-remodal-action="close" class="remodal-close"></button>
         <h3><?php echo $infoModal["title"] ?></h3>
         <div>
