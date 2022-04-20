@@ -88,6 +88,9 @@ class Plugin extends \MapasCulturais\Plugin {
                 $this->part('singles/edit-registration-button-edition');
         });
 
+        /**
+         * Modal para editar inscrição na página do comprovante
+         */
         $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
             
             $infoModal = [
@@ -98,6 +101,19 @@ class Plugin extends \MapasCulturais\Plugin {
             ];
             
             $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
+        });
+
+         /**
+         * Adicionando modal para editar inscrição na página da oportunidade
+         */
+        $app->hook('template(opportunity.single.modal-edit-registration):before', function($registration){
+            $infoModal = [
+                'title' => 'Você editará sua inscrição.',
+                'subTitle' => 'Todas as alterações feitas serão automaticamente salvas.',
+                'body' => 'Ao confirmar essa ação, <strong>você irá alterar uma inscrição já enviada.</strong> Você conseguirá editar novamente os dados desta inscrição se fizer isso durante o período de incrições.',
+                'buttonConfirm' => 'Confirmar'
+            ];
+            $this->part('modals/open-modal-confirm-edit-registration', ["id" => null, "infoModal" => $infoModal, "entity" => $registration, "modalid" => $registration->id]);
         });
 
         /**
