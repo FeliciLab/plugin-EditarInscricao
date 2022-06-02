@@ -44,37 +44,6 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('modals/info-field--required');
         });
 
-        $app->hook('view.partial(singles/registration-edit--send-button).params', function(&$__data, &$__template) use($app){
-            $entity = $this->data['entity'];
-            $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
-            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-
-            /** AVISO DE CAMPOS OBRIGATORIOS */
-            $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
-            $this->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
-
-            /** Adicionado SweetAlert 2 para modal de loading e futuro modais no mapa. */
-            $this->enqueueScript('app', 'sweetalert', 'https://cdn.jsdelivr.net/npm/sweetalert2@11');
-
-            $infoModal = [
-                'nameBtn' => 'Finalizar Inscrição',
-                'titleBtn' => 'Você está enviando sua inscrição para análise',
-                'titleModal' => 'Você está enviando sua inscrição para análise.'
-            ];
-            $isEdit = false;
-            if(!is_null($this->data['entity']->sentTimestamp)) {
-                $infoModal['nameBtn'] = 'Finalizar Edição';
-                $infoModal['titleBtn'] = 'Finalizar Edição.';
-                $infoModal['titleModal'] = 'Você está finalizando sua edição.';
-                $isEdit = true;
-            };
-
-            $__data['infoModal'] = $infoModal;
-            $__data['isEdit'] = $isEdit;
-
-            $__template = 'singles/edit-plugin-registration-send--button';
-        });
-        
         $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
             $day = new DateTime('now');
             $cantEdit = false;
