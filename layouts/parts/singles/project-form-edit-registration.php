@@ -45,16 +45,8 @@ if  ($entity->isRegistrationOpen()): ?>
                             <?php endif;?>
                         <?php endif;?>
                         <?php if(count($registrations) > 0): ?>
-                            <?php if($day <= $entity->registrationTo && count($registrations) == 1): ?>
-                                <div>
-                                    <?php $this->part('singles/edit-registration-button-edition'); ?>
-                                </div>
-                            <?php endif;?>
                             <div>
-                                <?php if(count($registrations) > 1): ?>
-                                    <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Acessar Inscrição");?></a>
-                                <?php endif;?>
-                                <?php if(count($registrations) == 1): ?>
+                                <?php if(count($registrations) >= 1): ?>
                                     <a href="<?=$entity->singleUrl;?>" class="btn btn-access-opportunity" style="color: #ffffff;" rel='noopener noreferrer' title="Acessar inscrições"><?php \MapasCulturais\i::_e("Acessar Inscrição");?></a>
                                 <?php endif;?>
                             </div>

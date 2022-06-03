@@ -10,6 +10,3 @@ if(!$canEdit) :
 ?>
 <?php endif; ?>
 <?php $this->applyTemplateHook('registration-single-header','before'); ?>
-<h3 class="registration-header-check">
-<?php \MapasCulturais\i::_e("Comprovante de Inscrição");?>
-</h3>

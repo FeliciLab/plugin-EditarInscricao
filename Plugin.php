@@ -40,49 +40,26 @@ class Plugin extends \MapasCulturais\Plugin {
             }
         });
         // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
-        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
+        $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
             $this->part('modals/info-field--required');
         });
 
-        $app->hook('template(registration.view.registration-opportunity-buttons):before', function() use($app){
-            $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
-            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-
-            /** AVISO DE CAMPOS OBRIGATORIOS */
-            $this->enqueueScript('app', 'errorValidation', 'js/ng.errorValidation.js');
-            $this->enqueueStyle('app', 'pnotify.buttons', 'css/remodal-styleCustom.css');
-
-            /** Adicionado SweetAlert 2 para modal de loading e futuro modais no mapa. */
-            $this->enqueueScript('app', 'sweetalert', 'https://cdn.jsdelivr.net/npm/sweetalert2@11');
-
-            $infoModal = [
-                'nameBtn' => 'Finalizar Inscrição',
-                'titleBtn' => 'Você está enviando sua inscrição para análise',
-                'titleModal' => 'Você está enviando sua inscrição para análise.'
-            ];
-            $isEdit = false;
-            if(!is_null($this->data['entity']->sentTimestamp)) {
-                $infoModal['nameBtn'] = 'Finalizar Edição';
-                $infoModal['titleBtn'] = 'Finalizar Edição.';
-                $infoModal['titleModal'] = 'Você está finalizando sua edição.';
-                $isEdit = true;
-            };
-            
-            $this->part('singles/edit-registration-send--button', ['infoModal' => $infoModal, 'isEdit' => $isEdit]);
-        });
-        
         $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
             $day = new DateTime('now');
-            $canEdit = false;
+            $cantEdit = false;
+
             /** CASO A DATA DE HOJE FOR MENOR OU IGUAL A DATA DO FIM DA INSCRIÇÃO */
-            if($day >= $this->data['entity']->opportunity->registrationTo) {
-                $canEdit = true;
+            if($this->data['entity']->opportunity->select_edit_registration == '1' && ($day <= $this->data['entity']->opportunity->registrationTo)) {
+                $cantEdit = true;
             }
-            if(!$canEdit) : 
-            $this->part('singles/edit-registration-button-edition');
-            endif;
+
+            if($cantEdit)
+                $this->part('singles/edit-registration-button-edition');
         });
 
+        /**
+         * Modal para editar inscrição na página do comprovante
+         */
         $app->hook('template(registration.view.modal-edit-registration-hook):before', function () use ($app) {
             
             $infoModal = [
@@ -95,15 +72,28 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('modals/open-modal-confirm-edit-registration', ["id" => $this->data['entity']->id, "infoModal" => $infoModal, "entity" => $this->data['entity']]);
         });
 
+         /**
+         * Adicionando modal para editar inscrição na página da oportunidade
+         */
+        $app->hook('template(opportunity.single.modal-edit-registration):before', function($registration){
+            $infoModal = [
+                'title' => 'Você editará sua inscrição.',
+                'subTitle' => 'Todas as alterações feitas serão automaticamente salvas.',
+                'body' => 'Ao confirmar essa ação, <strong>você irá alterar uma inscrição já enviada.</strong> Você conseguirá editar novamente os dados desta inscrição se fizer isso durante o período de incrições.',
+                'buttonConfirm' => 'Confirmar'
+            ];
+            $this->part('modals/open-modal-confirm-edit-registration', ["id" => null, "infoModal" => $infoModal, "entity" => $registration, "modalid" => $registration->id]);
+        });
+
         /**
          * Hook para na tela de projetos ser possivel editar inscrição.
          */
         $app->hook('view.partial(singles/opportunity-registrations--form).params', function (&$__data, &$__template)  use ($app){
             $url_atual = $app->view->controller->id;
+            $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             if($url_atual == "project"){
-                $this->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
-                $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-                $__template = 'singles/project-form-edit-registration.php'; 
+                $__template = 'singles/project-form-edit-registration'; 
             }
             return;
         }); 

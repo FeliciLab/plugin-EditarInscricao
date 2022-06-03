@@ -1,13 +1,5 @@
-<div class="registration-btn-edit">
-    <div class="edt-registration-btns-header">
-        <?php  
-        if(!is_null($id)){
-            $this->part('reports/button-print', ['id' => $id]); 
-        }
-        ?>
-    </div>
-   
-    <div class="remodal modal-border" data-remodal-id="modal-edit-registration">
+<div class="registration-btn-edit">   
+    <div class="remodal modal-border" data-remodal-id="modal-edit-registration<?php echo isset($modalid) ? $modalid : ''; ?>">
         <button data-remodal-action="close" class="remodal-close"></button>
         <h3><?php echo $infoModal["title"] ?></h3>
         <div>

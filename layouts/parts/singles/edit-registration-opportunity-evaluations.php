@@ -1,18 +1,16 @@
 <?php
-use DateTime;
 
 if($this->isEditable()):
-//limitDate sendo FALSE, a data de inscrição ainda nao se venceu
-$this->jsObject['limitDate'] =  false;
-$today = new DateTime('now');
-$registrationTo = $this->data->entity->registrationTo;
+    //limitDate sendo FALSE, a data de inscrição ainda nao se venceu
+    $this->jsObject['limitDate'] =  false;
+    $today = new \DateTime('now');
 
-if($today < $registrationTo):
-//trocando o valor da data vencida
-$this->jsObject['limitDate'] =  TRUE;
+    $registrationTo = $this->data->entity->registrationTo;
 
+    if($today < $registrationTo):
+    //trocando o valor da data vencida
+    $this->jsObject['limitDate'] =  TRUE;
 ?>
-
 <div id="opportunity-conf-avaliator" class="edit-registration-fieldset">
     <label>Deseja habilitar edição para o Candidato?</label>
     <small ng-click="editbox.open('id-da-caixa', $event)" title="Click para mais informações" class="registration-help" style="cursor: pointer; border-bottom: #c3c3c3;">
@@ -21,11 +19,11 @@ $this->jsObject['limitDate'] =  TRUE;
     <br>
     <select name="" id="select-registration-avaliator" >
         <option value="">--Selecione--</option>
-        <option value="1" selected>Sim</option>
-        <option value="0">Não</option>
+        <option value="1" <?php echo  $this->data->entity->select_edit_registration == 1 ? 'selected' : ''; ?>>Sim</option>
+        <option value="0" <?php echo  $this->data->entity->select_edit_registration == 0 ? 'selected' : ''; ?>>Não</option>
     </select>
-    <span class="js-editable" id="select_edit_registrations" data-edit="select_edit_registration" data-original-title="Cor preferida" data-emptytext="Selecione" style="display: none;">
-        <?php echo $this->select_edit_registration; ?>
+    <span class="js-editable" id="select_edit_registrations" data-edit="select_edit_registration" data-emptytext="Selecione" style="display: none;">
+        <?php echo isset($this->data->entity->select_edit_registration) ? $this->data->entity->select_edit_registration : '0'; ?>
     </span>
     <edit-box id="id-da-caixa" position="right" title="Habilitar edição" spinner-condition="data.processando" cancel-label="Fechar" close-on-cancel='true'>
         <p>
@@ -33,9 +31,7 @@ $this->jsObject['limitDate'] =  TRUE;
         </p>
     </edit-box>
 </div>
-
 <?php
-
-endif;
+    endif;
 endif;
 ?>

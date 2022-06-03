@@ -77,10 +77,7 @@
                             } else if (field.indexOf('space') !== -1) {
                                 $el = $('#registration-space-title').parent().find('.registration-label');
                             } else {
-                                $el = $('#' + field).find('div:first');
-                                if(!$el[0].innerText){
-                                    $el = $('#' + field).find('span:first');
-                                }
+                                $el = $('#' + field).find('span:first');
                             }
                             //para adicionar o nome dos campos
                             var nameFields = [];
@@ -88,6 +85,8 @@
                             if($el != null){
                                 $.each($el, function (indexInArray, val) { 
                                     var text = val.innerText.includes('(')  ? val.innerText.substr(0, val.innerText.indexOf('(')) : val.innerText;
+                                    text = text.replace('obrigatório*','');
+                                    console.log(text);
                                     nameFields.push('O Campo ' + text + ' é obrigatório.');
                                 });
                                 $.each(nameFields, function (index, valor) { 
