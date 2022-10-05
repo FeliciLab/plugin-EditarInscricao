@@ -18,7 +18,6 @@ if($this->isEditable()):
     </small>
     <br>
     <select name="" id="select-registration-avaliator" >
-        <option value="">--Selecione--</option>
         <option value="1" <?php echo  $this->data->entity->select_edit_registration == 1 ? 'selected' : ''; ?>>Sim</option>
         <option value="0" <?php echo  $this->data->entity->select_edit_registration == 0 ? 'selected' : ''; ?>>Não</option>
     </select>
