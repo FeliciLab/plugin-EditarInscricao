@@ -9,6 +9,12 @@ class Plugin extends \MapasCulturais\Plugin {
     public function _init () {
        $app = App::i();
 
+        $app->hook('view.render(<<*>>):before', function () use ($app) {
+            $this->enqueueScript('app', 'remodal', 'js/remodal.min.js');
+            $this->enqueueStyle('app', 'remodal', 'css/remodal/remodal.min.css');
+            $this->enqueueStyle('app', 'remodal-theme', 'css/remodal/remodal-default-theme.min.css');
+        });
+        
         $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
             $data = [];
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
@@ -25,7 +31,8 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('singles/edit-registration-single--header', ['entity' => $entity, 'opportunity' => $opportunity, 'id' => $id]);
         });
 
-        $app->hook('POST(registration.alterStatusRegistration)', function () use ($app) {
+        $app->hook('POST(registration.alterStatusRegistration)', function () use ($app)
+         {
             try {
                 //
                 $this->requireAuthentication();
@@ -44,7 +51,7 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('modals/info-field--required');
         });
 
-        $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
+        $app->hook('template(registration.view.header-fieldset):before', function() use($app){
             $day = new DateTime('now');
             $cantEdit = false;
 
