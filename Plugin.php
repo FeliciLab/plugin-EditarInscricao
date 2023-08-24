@@ -10,16 +10,17 @@ class Plugin extends \MapasCulturais\Plugin {
        $app = App::i();
 
         $app->hook('view.render(<<*>>):before', function () use ($app) {
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
             $this->enqueueScript('app', 'remodal', 'js/remodal.min.js');
+            $app->view->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
             $this->enqueueStyle('app', 'remodal', 'css/remodal/remodal.min.css');
             $this->enqueueStyle('app', 'remodal-theme', 'css/remodal/remodal-default-theme.min.css');
         });
         
-        $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
-            $data = [];
-            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-            $this->part('singles/edit-registration-opportunity-evaluations', ['template' => $template]);
-        });
+        // $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
+        //     $data = [];
+            
+        // });
 
         $app->hook('view.partial(singles/registration-single--header):after', function($template, $app){
 
@@ -49,7 +50,18 @@ class Plugin extends \MapasCulturais\Plugin {
         // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
         $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
             $this->part('modals/info-field--required');
+        
         });
+        //NA PÁGINA DA CRIAÇÃO DA OPORTUNIDADE
+        $app->hook('template(opportunity.edit.registration-config):after', function() use($app){
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+            $this->part('singles/edit-registration-opportunity-evaluations');
+        });
+
+        $app->hook(' template(registration.view.form):end', function() use($app){
+           $this->part('singles/edit-registration-message--send');
+        });
+
 
         $app->hook('template(registration.view.header-fieldset):before', function() use($app){
             $day = new DateTime('now');

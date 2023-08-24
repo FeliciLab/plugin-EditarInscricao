@@ -20,4 +20,5 @@ $(document).ready(function () {
         }
         $("#select_edit_registrations").editable('setValue', select);
     }
+    
 });
