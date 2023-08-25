@@ -18,7 +18,7 @@ $(document).ready(function () {
                 $(".agentes-relacionados .registration-fieldset > span").show();
             }
         }
-        $("#select_edit_registrations").editable('setValue', select);
+        $("#select_edit_registration").editable('setValue', select);
     }
     
 });
