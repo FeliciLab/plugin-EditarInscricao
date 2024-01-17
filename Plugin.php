@@ -9,11 +9,18 @@ class Plugin extends \MapasCulturais\Plugin {
     public function _init () {
        $app = App::i();
 
-        $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
-            $data = [];
+        $app->hook('view.render(<<*>>):before', function () use ($app) {
             $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
-            $this->part('singles/edit-registration-opportunity-evaluations', ['template' => $template]);
+            $this->enqueueScript('app', 'remodal', 'js/remodal.min.js');
+            $app->view->enqueueStyle('app', 'editRegistration', 'css/edtRegistrationStyle.css');
+            $this->enqueueStyle('app', 'remodal', 'css/remodal/remodal.min.css');
+            $this->enqueueStyle('app', 'remodal-theme', 'css/remodal/remodal-default-theme.min.css');
         });
+        
+        // $app->hook('view.partial(singles/opportunity-evaluations--committee):after', function($template){
+        //     $data = [];
+            
+        // });
 
         $app->hook('view.partial(singles/registration-single--header):after', function($template, $app){
 
@@ -25,7 +32,8 @@ class Plugin extends \MapasCulturais\Plugin {
             $this->part('singles/edit-registration-single--header', ['entity' => $entity, 'opportunity' => $opportunity, 'id' => $id]);
         });
 
-        $app->hook('POST(registration.alterStatusRegistration)', function () use ($app) {
+        $app->hook('POST(registration.alterStatusRegistration)', function () use ($app)
+         {
             try {
                 //
                 $this->requireAuthentication();
@@ -42,19 +50,32 @@ class Plugin extends \MapasCulturais\Plugin {
         // ADICIONANDO MODAL DE CAMPOS OBRIGATÓRIOS
         $app->hook('view.partial(singles/registration-edit--fields):after', function() use($app){
             $this->part('modals/info-field--required');
+        
+        });
+        //NA PÁGINA DA CRIAÇÃO DA OPORTUNIDADE
+        $app->hook('template(opportunity.edit.registration-config):after', function() use($app){
+            $this->enqueueScript('app', 'editRegistration', 'js/editRegistration.js');
+            $this->part('singles/edit-registration-opportunity-evaluations');
         });
 
-        $app->hook('template(registration.view.pdf-report-btn):before', function() use($app){
+        $app->hook(' template(registration.view.form):end', function() use($app){
+           $this->part('singles/edit-registration-message--send');
+        });
+
+
+        $app->hook('template(registration.view.header-fieldset):before', function() use($app){
             $day = new DateTime('now');
             $cantEdit = false;
-
+            //A entidade é a inscrição
+            $entity = $this->data['entity'];
             /** CASO A DATA DE HOJE FOR MENOR OU IGUAL A DATA DO FIM DA INSCRIÇÃO */
-            if($this->data['entity']->opportunity->select_edit_registration == '1' && ($day <= $this->data['entity']->opportunity->registrationTo)) {
+            if($this->data['entity']->opportunity->select_edit_registration == '1' &&
+                ($day <= $this->data['entity']->opportunity->registrationTo)) {
                 $cantEdit = true;
             }
 
             if($cantEdit)
-                $this->part('singles/edit-registration-button-edition');
+                $this->part('singles/edit-registration-button-edition',['entity' => $entity]);
         });
 
         /**
