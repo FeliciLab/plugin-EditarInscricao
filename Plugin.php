@@ -66,14 +66,16 @@ class Plugin extends \MapasCulturais\Plugin {
         $app->hook('template(registration.view.header-fieldset):before', function() use($app){
             $day = new DateTime('now');
             $cantEdit = false;
-
+            //A entidade é a inscrição
+            $entity = $this->data['entity'];
             /** CASO A DATA DE HOJE FOR MENOR OU IGUAL A DATA DO FIM DA INSCRIÇÃO */
-            if($this->data['entity']->opportunity->select_edit_registration == '1' && ($day <= $this->data['entity']->opportunity->registrationTo)) {
+            if($this->data['entity']->opportunity->select_edit_registration == '1' &&
+                ($day <= $this->data['entity']->opportunity->registrationTo)) {
                 $cantEdit = true;
             }
 
             if($cantEdit)
-                $this->part('singles/edit-registration-button-edition');
+                $this->part('singles/edit-registration-button-edition',['entity' => $entity]);
         });
 
         /**
